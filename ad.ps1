@@ -9,3 +9,6 @@ Install-ADDSForest -CreateDnsDelegation:$false -DatabasePath â€œC:\Windows\NTDSâ
 
 # Renaming Computer 
 Rename-Computer -NewName ad01-young
+
+# Restarting Computer
+Restart-Computer -Force

@@ -21,4 +21,4 @@ Add-ADGroupMember -Identity "Domain Admins" -Members "young.chen-adm"
 Add-DnsServerResourceRecordA -Name "blog01-young" -IPv4Address "10.0.5.20" -ZoneName "young.local" -CreatePtr
 Add-DnsServerResourceRecordA -Name "fw01-young" -IPv4Address "10.0.5.2" -ZoneName "young.local" -CreatePtr
 Add-DnsServerResourceRecordA -Name "fs01-young" -IPv4Address "10.0.5.8" -ZoneName "young.local" -CreatePtr
-Add-DnsServerResourceRecordA -Name "dhcp01-young" -IPv4Address "10.0.5.33" -ZoneName "young.local" -CreatePtr
+Add-DnsServerResourceRecordA -Name "lin01-young" -IPv4Address "10.0.5.33" -ZoneName "young.local" -CreatePtr

@@ -13,3 +13,9 @@ Add-DnsServerResourceRecordA -Name "blog01-young" -IPv4Address "10.0.5.20" -Zone
 Add-DnsServerResourceRecordA -Name "fw01-young" -IPv4Address "10.0.5.2" -ZoneName "young.local" -CreatePtr
 Add-DnsServerResourceRecordA -Name "fs01-young" -IPv4Address "10.0.5.8" -ZoneName "young.local" -CreatePtr
 Add-DnsServerResourceRecordA -Name "lin01-young" -IPv4Address "10.0.5.33" -ZoneName "young.local" -CreatePtr
+
+# Renaming Computer 
+Rename-Computer -NewName ad01-young
+
+# Restarting Computer
+Restart-Computer -Force

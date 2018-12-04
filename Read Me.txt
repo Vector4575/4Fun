@@ -1,0 +1,29 @@
+CHANGE THE ADAPTERS++
+
+Set all configurations on computers. 
+AD/DNS: 10.0.5.6
+DHCP Server: 10.0.5.33
+File Server: 10.0.5.8
+Blog Server: 10.0.5.20
+Firewall: 10.0.5.2
+
+
+
+(Do this During the AD Script)
+Linux: 
+Set the network configs and change the hostname. 
+
+Windows: 
+Set the network configs and turn off firewalls. 
+Change the hostnames and then restart. 
+
+(Run AfterAD script)
+Change the workstations configs to DHCP 
+Setup the Blog
+
+
+
+
+
+Use this to start another powershell instance. 
+invoke-expression 'cmd /c start powershell -Command { [script block here] }'

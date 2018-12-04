@@ -1,0 +1,3 @@
+cd /
+chmod +x dhcp.sh
+./dhcp.sh

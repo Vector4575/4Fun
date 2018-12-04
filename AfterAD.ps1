@@ -1,6 +1,9 @@
 # Making Users
 New-ADUser -Name "Young Chen" -DisplayName "Young Chen (ADM)" -SamAccountName "young.chen-adm" -UserPrincipalName "young.chen-adm@young.local" -AccountPassword(ConvertTo-SecureString -AsPlainText "P@ssword!" -Force) -Enabled $true
 New-ADUser -Name "Young W. Chen" -DisplayName "Young Chen" -SamAccountName "young.chen" -UserPrincipalName "young.chen@young.local" -AccountPassword(ConvertTo-SecureString -AsPlainText "P@ssword!" -Force) -Enabled $true
+New-ADUser -Name "Alice" -DisplayName "Alice(DU)" -SamAccountName "alice" -UserPrincipalName "alice@young.local" -AccountPassword(ConvertTo-SecureString -AsPlainText "P@ssword!" -Force) -Enabled $true
+New-ADUser -Name "Bob" -DisplayName "Bob(DU)" -SamAccountName "bob" -UserPrincipalName "bob@young.local" -AccountPassword(ConvertTo-SecureString -AsPlainText "P@ssword!" -Force) -Enabled $true
+New-ADUser -Name "Charlie" -DisplayName "Charlie(DU)" -SamAccountName "charlie" -UserPrincipalName "charlie@young.local" -AccountPassword(ConvertTo-SecureString -AsPlainText "P@ssword!" -Force)
 
 # Making Users Admins
 Add-ADGroupMember -Identity "Domain Admins" -Members "young.chen-adm"

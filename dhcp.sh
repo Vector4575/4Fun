@@ -6,12 +6,6 @@ useradd young
 echo -e "P@ssword!\nP@ssword!" | passwd young
 usermod -aG wheel young
 
-echo "Installing Packages for Joining Windows Domain"
-yum -y install realmd samba samba-common oddjob oddjob-mkhomedir sssd
-
-echo "Joining Windows Domain"
-echo -e "P@ssword!" | realm join --user=young.chen@young.local young.local
-
 echo "Copying SSHD Config File"
 cp /sshd_config /etc/ssh/sshd_config
 

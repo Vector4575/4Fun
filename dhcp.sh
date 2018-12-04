@@ -6,6 +6,9 @@ useradd young
 echo -e "P@ssword!\nP@ssword!" | passwd young
 usermod -aG wheel young
 
+echo "Installing Tree"
+yum -y install tree
+
 echo "Copying SSHD Config File"
 cp /sshd_config /etc/ssh/sshd_config
 

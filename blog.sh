@@ -6,6 +6,9 @@ useradd young
 echo -e "P@ssword!\nP@ssword!" | passwd young
 usermod -aG wheel young
 
+echo "Installing Tree"
+yum -y install tree
+
 echo "Installing Packages for Joining Windows Domain"
 yum -y install realmd samba samba-common oddjob oddjob-mkhomedir sssd
 

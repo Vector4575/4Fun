@@ -17,9 +17,6 @@ Add-DnsServerResourceRecordA -Name "fw01-young" -IPv4Address "10.0.5.2" -ZoneNam
 Add-DnsServerResourceRecordA -Name "fs01-young" -IPv4Address "10.0.5.8" -ZoneName "young.local" -CreatePtr
 Add-DnsServerResourceRecordA -Name "lin01-young" -IPv4Address "10.0.5.33" -ZoneName "young.local" -CreatePtr
 
-# Renaming Computer 
-Rename-Computer -NewName ad01-young
-
 # Tranferring files to Blog server 
 .\pscp.exe -pw Ch@mpl@1n!18 C:\Users\Administrator\Desktop\blog.sh root@10.0.5.20:/
 .\pscp.exe -pw Ch@mpl@1n!18 C:\Users\Administrator\Desktop\sshd_config root@10.0.5.20:/
@@ -42,6 +39,33 @@ Enable-PSRemoting -Force
 winrm quickconfig -quiet
 netsh advfirewall set allprofiles state off
 
-# Sending script to windows workstation 
-Invoke-Command -ComputerName wks01-young -ScriptBlock {}
+# creds of workstation user
+$username = "young"
+$password = "P@ssword!" | ConvertTo-SecureString -AsPlainText -Force
+$creds = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $username,$password
 
+# creds of domain admin
+$username1 = "YOUNG\young.chen-adm"
+$password1 = "P@ssword!" | ConvertTo-SecureString -AsPlainText -Force
+$creds1 = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $username1,$password1
+
+# creds of file server user
+$username2 = "Administrator"
+$password2 = "P@ssword!" | ConvertTo-SecureString -AsPlainText -Force
+$creds2 = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $username2,$password2
+
+# Adding workstation to domain 
+Add-Computer -ComputerName "wks01-young" -LocalCredential $creds -DomainName "young" -Credential $creds1 -Restart -Force
+
+# Installing Featureson FS01
+Install-WindowsFeature FS-Resource-Manager
+Install-WindowsFeature -ComputerName fs01-young -Name File-Services,FS-FileServer,FS-Resource-Manager -IncludeManagementTools -Credential $creds2
+
+# Adding file server to domain 
+Add-Computer -ComputerName "fs01-young" -LocalCredential $creds2 -DomainName "young" -DomainCredential $creds1 -Restart -Force
+
+# Renaming Computer 
+Rename-Computer -NewName ad01-young
+
+#Restart Server 
+Restart-Computer -Force

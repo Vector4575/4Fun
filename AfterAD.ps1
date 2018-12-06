@@ -35,3 +35,13 @@ Rename-Computer -NewName ad01-young
 
 #  Running dhcp.sh
 .\putty.exe -ssh root@10.0.5.33 -pw Ch@mpl@1n!18 -m .\cdhcp.txt
+
+#Joining Windows computer to domain. 
+Set-Item WSMan:\localhost\Client\TrustedHosts\ -Value "*"
+Enable-PSRemoting -Force
+winrm quickconfig -quiet
+netsh advfirewall set allprofiles state off
+
+# Sending script to windows workstation 
+Invoke-Command -ComputerName wks01-young -ScriptBlock {}
+

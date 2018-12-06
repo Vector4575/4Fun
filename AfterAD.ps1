@@ -57,9 +57,14 @@ $creds2 = New-Object -TypeName System.Management.Automation.PSCredential -Argume
 # Adding workstation to domain 
 Add-Computer -ComputerName "wks01-young" -LocalCredential $creds -DomainName "young" -Credential $creds1 -Restart -Force
 
-# Installing Featureson FS01
+# Installing Features on FS01
 Install-WindowsFeature FS-Resource-Manager
 Install-WindowsFeature -ComputerName fs01-young -Name File-Services,FS-FileServer,FS-Resource-Manager -IncludeManagementTools -Credential $creds2
+
+# Creating Share 
+Invoke-Command -ComputerName fs01-young -ScriptBlock {New-Item -Path "C:\SYS255" -ItemType Directory}
+Invoke-Command -ComputerName fs01-young -ScriptBlock {New-SmbShare -Name "SYS255" -Path "C:\SYS255"}
+Invoke-Command -ComputerName fs01-young -ScriptBlock {New-Item -Name "testfile.txt"-Path "C:\SYS255" -ItemType File -Value "This was scripted"}
 
 # Adding file server to domain 
 Add-Computer -ComputerName "fs01-young" -LocalCredential $creds2 -DomainName "young" -DomainCredential $creds1 -Restart -Force
